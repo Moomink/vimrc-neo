@@ -32,6 +32,11 @@ endif
 " Add the dein installation directory into runtimepath
 if has('vim_starting')
   set runtimepath+=~/.config/nvim/bundle/neobundle.vim/
+
+  if !isdirectory(expand("~/.config/nvim/bundle/neobundle.vim/"))
+      echo "install NeoBundle..."
+      :call system("git clone git://github.com/Shougo/neobundle.vim ~/.config/nvim/bundle/neobundle.vim")
+    endif
 endif
 
 
