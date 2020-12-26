@@ -58,17 +58,20 @@ NeoBundle 'dart-lang/dart-vim-plugin'
 NeoBundle 'natebosch/vim-lsc-dart'
 NeoBundle 'ConradIrwin/vim-bracketed-paste'
 
+NeoBundle 'fatih/vim-go'
+let g:go_version_warning = 0
+
 call neobundle#end()
 
 filetype plugin indent on
 syntax enable
 colorscheme molokai
 
-set t_Co=256 
-set laststatus=2 
-set showmode 
-set showcmd 
-set ruler 
+set t_Co=256
+set laststatus=2
+set showmode
+set showcmd
+set ruler
 set shortmess-=F
 
 NeoBundleCheck
