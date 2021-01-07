@@ -86,6 +86,9 @@ NeoBundle 'ryanoasis/vim-devicons'
 NeoBundle 'shime/vim-livedown'
 let g:livedown_browser= "chrome"
 
+NeoBundle 'fatih/vim-go'
+let g:go_version_warning = 0
+
 call neobundle#end()
 
 let g:airline#extensions#tabline#enabled = 1
