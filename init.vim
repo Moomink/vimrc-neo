@@ -70,6 +70,7 @@ if !has('nvim')
   NeoBundle 'roxma/vim-hug-neovim-rpc'
  endif
 
+NeoBundle 'prettier/vim-prettier'
 NeoBundle 'natebosch/vim-lsc'
 NeoBundle 'nightsense/seabird'
 NeoBundle 'bronson/vim-trailing-whitespace'
@@ -82,6 +83,7 @@ NeoBundle 'whatyouhide/vim-gotham'
 NeoBundle 'vim-airline/vim-airline'
 NeoBundle 'vim-airline/vim-airline-themes'
 NeoBundle 'ryanoasis/vim-devicons'
+NeoBundle 'simeji/winresizer'
 
 NeoBundle 'shime/vim-livedown'
 let g:livedown_browser= "chrome"
