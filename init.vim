@@ -32,6 +32,10 @@ noremap ^ $
 noremap $ ^
 noremap <C-w><Tab> <C-w>w
 
+inoremap {<Enter> {}<Left><CR><ESC><S-o>
+inoremap [<Enter> []<Left><CR><ESC><S-o>
+inoremap (<Enter> ()<Left><CR><ESC><S-o>
+
 tnoremap <Esc> <C-\><C-n>
 
 filetype off
@@ -65,10 +69,11 @@ call neobundle#begin(expand('~/.config/nvim/bundle'))
 NeoBundleFetch 'Shougo/neobundle.vim'
 
 NeoBundle 'Shougo/deoplete.nvim'
+
 if !has('nvim')
   NeoBundle 'roxma/nvim-yarp'
   NeoBundle 'roxma/vim-hug-neovim-rpc'
- endif
+endif
 
 NeoBundle 'prettier/vim-prettier'
 NeoBundle 'natebosch/vim-lsc'
@@ -78,6 +83,7 @@ NeoBundle 'Yggdroot/indentLine'
 NeoBundle 'itchyny/lightline.vim'
 NeoBundle 'dart-lang/dart-vim-plugin'
 NeoBundle 'natebosch/vim-lsc-dart'
+NeoBundle 'thosakwe/vim-flutter'
 NeoBundle 'ConradIrwin/vim-bracketed-paste'
 NeoBundle 'whatyouhide/vim-gotham'
 NeoBundle 'vim-airline/vim-airline'
