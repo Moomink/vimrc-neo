@@ -112,6 +112,14 @@ let g:livedown_browser= "chrome"
 NeoBundle 'fatih/vim-go'
 let g:go_version_warning = 0
 
+NeoBundle '907th/vim-auto-save'
+let g:auto_save = 0
+let g:auto_save_silent = 1
+augroup ft_markdown
+  au!
+  au FileType markdown let b:auto_save = 1
+augroup END
+
 call neobundle#end()
 
 let g:airline#extensions#tabline#enabled = 1
