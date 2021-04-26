@@ -61,14 +61,18 @@ if has('vim_starting')
   if !isdirectory(expand("~/.config/nvim/bundle/neobundle.vim/"))
       echo "install NeoBundle..."
       :call system("git clone git://github.com/Shougo/neobundle.vim ~/.config/nvim/bundle/neobundle.vim")
-    endif
+  endif
 endif
+
+let g:python3_host_prog = 'C:\Python39\python.exe'
+let g:python_host_prog = 'C:\Python27\python.exe'
 
 
 call neobundle#begin(expand('~/.config/nvim/bundle'))
 NeoBundleFetch 'Shougo/neobundle.vim'
 
 NeoBundle 'Shougo/deoplete.nvim'
+let g:deoplete#enable_at_startup = 1
 
 if !has('nvim')
   NeoBundle 'roxma/nvim-yarp'
@@ -83,6 +87,9 @@ NeoBundle 'Yggdroot/indentLine'
 NeoBundle 'itchyny/lightline.vim'
 NeoBundle 'dart-lang/dart-vim-plugin'
 NeoBundle 'natebosch/vim-lsc-dart'
+let g:dart_format_on_save = 1
+
+NeoBundle 'neoclide/coc.nvim'
 NeoBundle 'thosakwe/vim-flutter'
 NeoBundle 'ConradIrwin/vim-bracketed-paste'
 NeoBundle 'whatyouhide/vim-gotham'
