@@ -116,8 +116,71 @@ let g:ale_linters = {
 NeoBundle 'shime/vim-livedown'
 let g:livedown_browser= "chrome"
 
-NeoBundle 'fatih/vim-go'
-let g:go_version_warning = 0
+NeoBundle 'prabirshrestha/asyncomplete.vim'
+NeoBundle 'prabirshrestha/asyncomplete-lsp.vim'
+NeoBundle 'prabirshrestha/vim-lsp'
+NeoBundle 'mattn/vim-lsp-settings'
+NeoBundle 'SirVer/ultisnips'
+NeoBundle 'honza/vim-snippets'
+NeoBundle 'thomasfaingnaert/vim-lsp-snippets'
+NeoBundle 'thomasfaingnaert/vim-lsp-ultisnips'
+NeoBundle 'hrsh7th/vim-vsnip'
+NeoBundle 'hrsh7th/vim-vsnip-integ'
+NeoBundle 'mattn/vim-goimports'
+
+function! s:on_lsp_buffer_enabled() abort
+  setlocal omnifunc=lsp#complete
+  setlocal signcolumn=yes
+  nmap <buffer> gd <plug>(lsp-definition)
+  nmap <buffer> <C-]> <plug>(lsp-definition)
+  nmap <buffer> <f2> <plug>(lsp-rename)
+  nmap <buffer> <Leader>d <plug>(lsp-type-definition)
+  nmap <buffer> <Leader>r <plug>(lsp-references)
+  nmap <buffer> <Leader>i <plug>(lsp-implementation)
+  inoremap <expr> <cr> pumvisible() ? "\<c-y>\<cr>" : "\<cr>"
+endfunction
+
+augroup lsp_install
+  au!
+  autocmd User lsp_buffer_enabled call s:on_lsp_buffer_enabled()
+augroup END
+command! LspDebug let lsp_log_verbose=1 | let lsp_log_file = expand('~/lsp.log')
+
+let g:lsp_diagnostics_enabled = 1
+let g:lsp_diagnostics_echo_cursor = 1
+" let g:asyncomplete_auto_popup = 1
+" let g:asyncomplete_auto_completeopt = 0
+let g:asyncomplete_popup_delay = 200
+let g:lsp_text_edit_enabled = 1
+let g:lsp_preview_float = 1
+let g:lsp_diagnostics_float_cursor = 1
+let g:lsp_settings_filetype_go = ['gopls', 'golangci-lint-langserver']
+
+let g:lsp_settings = {}
+let g:lsp_settings['gopls'] = {
+  \  'workspace_config': {
+  \    'usePlaceholders': v:true,
+  \    'analyses': {
+  \      'fillstruct': v:true,
+  \    },
+  \  },
+  \  'initialization_options': {
+  \    'usePlaceholders': v:true,
+  \    'analyses': {
+  \      'fillstruct': v:true,
+  \    },
+  \  },
+  \}
+
+" For snippets
+let g:UltiSnipsExpandTrigger="<tab>"
+let g:UltiSnipsJumpForwardTrigger="<tab>"
+let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
+
+set completeopt+=menuone
+
+" NeoBundle 'fatih/vim-go'
+" let g:go_version_warning = 0
 
 NeoBundle '907th/vim-auto-save'
 let g:auto_save = 0
@@ -143,5 +206,5 @@ set showmode
 set showcmd
 set ruler
 set shortmess-=F
-
+set mouse=a
 NeoBundleCheck
