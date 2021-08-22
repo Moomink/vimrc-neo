@@ -72,7 +72,10 @@ call neobundle#begin(expand('~/.config/nvim/bundle'))
 NeoBundleFetch 'Shougo/neobundle.vim'
 
 NeoBundle 'Shougo/deoplete.nvim'
+<<<<<<< Updated upstream
 let g:deoplete#enable_at_startup = 1
+=======
+>>>>>>> Stashed changes
 
 if !has('nvim')
   NeoBundle 'roxma/nvim-yarp'
@@ -87,9 +90,12 @@ NeoBundle 'Yggdroot/indentLine'
 NeoBundle 'itchyny/lightline.vim'
 NeoBundle 'dart-lang/dart-vim-plugin'
 NeoBundle 'natebosch/vim-lsc-dart'
+<<<<<<< Updated upstream
 let g:dart_format_on_save = 1
 
 NeoBundle 'neoclide/coc.nvim'
+=======
+>>>>>>> Stashed changes
 NeoBundle 'thosakwe/vim-flutter'
 NeoBundle 'ConradIrwin/vim-bracketed-paste'
 NeoBundle 'whatyouhide/vim-gotham'
@@ -97,6 +103,7 @@ NeoBundle 'vim-airline/vim-airline'
 NeoBundle 'vim-airline/vim-airline-themes'
 NeoBundle 'ryanoasis/vim-devicons'
 NeoBundle 'simeji/winresizer'
+<<<<<<< Updated upstream
 
 NeoBundle 'w0rp/ale'
 
@@ -112,6 +119,8 @@ let g:ale_linters = {
       \   'cpp' : ['clangd']
   \}
 
+=======
+>>>>>>> Stashed changes
 
 NeoBundle 'shime/vim-livedown'
 let g:livedown_browser= "chrome"
