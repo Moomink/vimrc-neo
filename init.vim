@@ -5,6 +5,7 @@ set ambiwidth=double
 set fileencoding=utf-8
 set fileencodings=ucs-boms,utf-8,euc-jp,cp932
 
+
 set expandtab
 set tabstop=4
 set softtabstop=4
@@ -39,8 +40,11 @@ inoremap (<Enter> ()<Left><CR><ESC><S-o>
 tnoremap <Esc> <C-\><C-n>
 
 filetype off
+filetype plugin indent on
 set wildmenu
 set history=5000
+
+set shell=zsh
 
 if has("win32")
     set shell=pwsh
@@ -64,18 +68,16 @@ if has('vim_starting')
   endif
 endif
 
-let g:python3_host_prog = 'C:\Python39\python.exe'
-let g:python_host_prog = 'C:\Python27\python.exe'
-
+if has("win32")
+  let g:python3_host_prog = 'C:\Python39\python.exe'
+  let g:python_host_prog = 'C:\Python27\python.exe'
+endif
 
 call neobundle#begin(expand('~/.config/nvim/bundle'))
 NeoBundleFetch 'Shougo/neobundle.vim'
 
-NeoBundle 'Shougo/deoplete.nvim'
-<<<<<<< Updated upstream
-let g:deoplete#enable_at_startup = 1
-=======
->>>>>>> Stashed changes
+"NeoBundle 'Shougo/deoplete.nvim'
+"let g:deoplete#enable_at_startup = 1
 
 if !has('nvim')
   NeoBundle 'roxma/nvim-yarp'
@@ -90,12 +92,47 @@ NeoBundle 'Yggdroot/indentLine'
 NeoBundle 'itchyny/lightline.vim'
 NeoBundle 'dart-lang/dart-vim-plugin'
 NeoBundle 'natebosch/vim-lsc-dart'
-<<<<<<< Updated upstream
 let g:dart_format_on_save = 1
 
-NeoBundle 'neoclide/coc.nvim'
-=======
->>>>>>> Stashed changes
+NeoBundle 'neoclide/coc.nvim', 'release'
+
+" Always show the signcolumn, otherwise it would shift the text each time
+" diagnostics appear/become resolved.
+if has("nvim-0.5.0") || has("patch-8.1.1564")
+  " Recently vim can merge signcolumn and number column into one
+  set signcolumn=number
+else
+  set signcolumn=yes
+endif
+
+inoremap <silent><expr> <TAB>
+      \ pumvisible() ? "\<C-n>" :
+      \ <SID>check_back_space() ? "\<TAB>" :
+      \ coc#refresh()
+inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
+
+function! s:check_back_space() abort
+  let col = col('.') - 1
+  return !col || getline('.')[col - 1]  =~# '\s'
+endfunction
+
+
+" Use <c-space> to trigger completion.
+if has('nvim')
+  inoremap <silent><expr> <c-space> coc#refresh()
+else
+  inoremap <silent><expr> <c-@> coc#refresh()
+endif
+
+" Symbol renaming.
+nmap <leader>rn <Plug>(coc-rename)
+
+" Formatting selected code.
+xmap <leader>f  <Plug>(coc-format-selected)
+nmap <leader>f  <Plug>(coc-format-selected)
+
+
+
 NeoBundle 'thosakwe/vim-flutter'
 NeoBundle 'ConradIrwin/vim-bracketed-paste'
 NeoBundle 'whatyouhide/vim-gotham'
@@ -103,14 +140,15 @@ NeoBundle 'vim-airline/vim-airline'
 NeoBundle 'vim-airline/vim-airline-themes'
 NeoBundle 'ryanoasis/vim-devicons'
 NeoBundle 'simeji/winresizer'
-<<<<<<< Updated upstream
 
-NeoBundle 'w0rp/ale'
+
+"Coc で代用
+"NeoBundle 'w0rp/ale'
 
 let g:ale_sign_column_always = 1
 let g:ale_fix_on_save = 1
 let g:ale_completion_enabled = 1
-let g:ale_sign_error = '⨉'
+let g:ale_sign_error = 'X'
 let g:ale_sign_warning = '⚠'
 
 let g:ale_echo_msg_format = '[%linter%] %s [%severity%]'
@@ -119,23 +157,25 @@ let g:ale_linters = {
       \   'cpp' : ['clangd']
   \}
 
-=======
->>>>>>> Stashed changes
 
 NeoBundle 'shime/vim-livedown'
 let g:livedown_browser= "chrome"
 
-NeoBundle 'prabirshrestha/asyncomplete.vim'
-NeoBundle 'prabirshrestha/asyncomplete-lsp.vim'
+"NeoBundle 'prabirshrestha/asyncomplete.vim'
+"NeoBundle 'prabirshrestha/asyncomplete-lsp.vim'
 NeoBundle 'prabirshrestha/vim-lsp'
 NeoBundle 'mattn/vim-lsp-settings'
 NeoBundle 'SirVer/ultisnips'
 NeoBundle 'honza/vim-snippets'
 NeoBundle 'thomasfaingnaert/vim-lsp-snippets'
 NeoBundle 'thomasfaingnaert/vim-lsp-ultisnips'
-NeoBundle 'hrsh7th/vim-vsnip'
-NeoBundle 'hrsh7th/vim-vsnip-integ'
+"NeoBundle 'hrsh7th/vim-vsnip'
+"NeoBundle 'hrsh7th/vim-vsnip-integ'
 NeoBundle 'mattn/vim-goimports'
+
+" Rust Lang
+NeoBundle 'rust-lang/rust.vim'
+let g:rustfmt_autosave = 1
 
 function! s:on_lsp_buffer_enabled() abort
   setlocal omnifunc=lsp#complete
@@ -146,7 +186,7 @@ function! s:on_lsp_buffer_enabled() abort
   nmap <buffer> <Leader>d <plug>(lsp-type-definition)
   nmap <buffer> <Leader>r <plug>(lsp-references)
   nmap <buffer> <Leader>i <plug>(lsp-implementation)
-  inoremap <expr> <cr> pumvisible() ? "\<c-y>\<cr>" : "\<cr>"
+"  inoremap <expr> <cr> pumvisible() ? "\<c-y>\<cr>" : "\<cr>"
 endfunction
 
 augroup lsp_install
