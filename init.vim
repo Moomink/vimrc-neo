@@ -249,6 +249,13 @@ filetype plugin indent on
 syntax enable
 colorscheme  gotham256 "テーマ設定
 
+" HTML
+augroup HTMLANDXML
+  autocmd!
+  autocmd Filetype xml inoremap <buffer> </ </<C-x><C-o>
+  autocmd Filetype html inoremap <buffer> </ </<C-x><C-o>
+augroup END
+
 set t_Co=256
 set laststatus=2
 set showmode
