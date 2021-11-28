@@ -28,6 +28,7 @@ autocmd Filetype javascript setlocal expandtab tabstop=2 shiftwidth=2 softtabsto
 autocmd Filetype eruby setlocal expandtab tabstop=4 shiftwidth=4 softtabstop=4
 autocmd Filetype typescript setlocal expandtab tabstop=2 shiftwidth=2 softtabstop=2
 autocmd Filetype css setlocal expandtab tabstop=2 shiftwidth=2 softtabstop=2
+autocmd Filetype dart setlocal expandtab tabstop=2 shiftwidth=2 softtabstop=2
 
 noremap ^ $
 noremap $ ^
@@ -91,7 +92,7 @@ NeoBundle 'bronson/vim-trailing-whitespace'
 NeoBundle 'Yggdroot/indentLine'
 NeoBundle 'itchyny/lightline.vim'
 NeoBundle 'dart-lang/dart-vim-plugin'
-NeoBundle 'natebosch/vim-lsc-dart'
+" NeoBundle 'natebosch/vim-lsc-dart'
 let g:dart_format_on_save = 1
 
 NeoBundle 'neoclide/coc.nvim', 'release'
@@ -238,6 +239,12 @@ augroup ft_markdown
   au!
   au FileType markdown let b:auto_save = 1
 augroup END
+
+" css color preview
+NeoBundle 'ap/vim-css-color'
+
+NeoBundle 'scrooloose/nerdtree'
+map <C-n> :NERDTreeToggle<CR>
 
 call neobundle#end()
 
