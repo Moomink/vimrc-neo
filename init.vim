@@ -246,6 +246,9 @@ NeoBundle 'ap/vim-css-color'
 NeoBundle 'scrooloose/nerdtree'
 map <C-n> :NERDTreeToggle<CR>
 
+NeoBundle 'lervag/vimtex'
+
+
 call neobundle#end()
 
 let g:airline#extensions#tabline#enabled = 1
@@ -270,4 +273,12 @@ set showcmd
 set ruler
 set shortmess-=F
 set mouse=a
+
+
+" 背景透過
+"highlight Normal ctermbg=none
+"highlight NonText ctermbg=none
+"highlight LineNr ctermbg=none
+"highlight Folded ctermbg=none
+"highlight EndOfBuffer ctermbg=none
 NeoBundleCheck
