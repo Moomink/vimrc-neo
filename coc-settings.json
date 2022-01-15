@@ -1,0 +1,8 @@
+{
+    "languageserver" : {
+    },
+    "coc.preferences.formatOnSaveFiletypes": [
+    "cpp",
+    "c"
+  ],
+}
