@@ -247,7 +247,7 @@ NeoBundle 'scrooloose/nerdtree'
 map <C-n> :NERDTreeToggle<CR>
 
 NeoBundle 'lervag/vimtex'
-
+let g:tex_coceal=''
 
 call neobundle#end()
 
@@ -269,6 +269,7 @@ augroup END
 set t_Co=256
 set laststatus=2
 set showmode
+set conceallevel=0
 set showcmd
 set ruler
 set shortmess-=F
@@ -281,4 +282,3 @@ set mouse=a
 "highlight LineNr ctermbg=none
 "highlight Folded ctermbg=none
 "highlight EndOfBuffer ctermbg=none
-NeoBundleCheck
