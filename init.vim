@@ -249,7 +249,16 @@ map <C-n> :NERDTreeToggle<CR>
 NeoBundle 'lervag/vimtex'
 let g:tex_coceal=''
 
+" Japanese Input
+NeoBundle 'vim-denops/denops.vim'
+NeoBundle 'vim-skk/denops-skkeleton.vim'
+imap <C-j> <Plug>(skkeleton-toggle)
+cmap <C-j> <Plug>(skkeleton-toggle)
+
+
 call neobundle#end()
+
+"call skkeleton#config({'eggLikeNewline':v:true})
 
 let g:airline#extensions#tabline#enabled = 1
 let g:airline_theme = 'luna'
