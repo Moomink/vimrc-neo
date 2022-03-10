@@ -251,15 +251,22 @@ let g:tex_coceal=''
 
 " Japanese Input
 NeoBundle 'vim-denops/denops.vim'
-NeoBundle 'vim-skk/denops-skkeleton.vim'
+NeoBundle 'vim-skk/skkeleton'
+NeoBundle 'vim-denops/denops-helloworld.vim'
+
+let g:denops#deno = "$HOME/.deno/bin/deno"
+
+
 imap <C-j> <Plug>(skkeleton-toggle)
 cmap <C-j> <Plug>(skkeleton-toggle)
 
 
 call neobundle#end()
 
-"call skkeleton#config({'eggLikeNewline':v:true})
 
+call skkeleton#config({
+\'eggLikeNewline':v:true
+\})
 let g:airline#extensions#tabline#enabled = 1
 let g:airline_theme = 'luna'
 "let g:airline_powerline_fonts = 1
@@ -274,6 +281,7 @@ augroup HTMLANDXML
   autocmd Filetype xml inoremap <buffer> </ </<C-x><C-o>
   autocmd Filetype html inoremap <buffer> </ </<C-x><C-o>
 augroup END
+
 
 set t_Co=256
 set laststatus=2
