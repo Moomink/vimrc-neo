@@ -4,22 +4,17 @@ set fileformats=unix,dos,mac
 set ambiwidth=double
 set fileencoding=utf-8
 set fileencodings=ucs-boms,utf-8,euc-jp,cp932
-
-
 set expandtab
 set tabstop=4
 set softtabstop=4
 set autoindent
 set smartindent
 set shiftwidth=4
-
 set autowrite
 set number
 set cursorline
 set clipboard+=unnamed
-
 set showmatch
-
 " Tab settings according to filetype (https://stackoverflow.com/questions/39783724/vim-airline-config-screwed-up)
 autocmd Filetype python setlocal expandtab tabstop=4 shiftwidth=4 softtabstop=4
 autocmd Filetype ruby setlocal expandtab tabstop=2 shiftwidth=2 softtabstop=2
@@ -30,10 +25,10 @@ autocmd Filetype typescript setlocal expandtab tabstop=2 shiftwidth=2 softtabsto
 autocmd Filetype css setlocal expandtab tabstop=2 shiftwidth=2 softtabstop=2
 autocmd Filetype dart setlocal expandtab tabstop=2 shiftwidth=2 softtabstop=2
 
+
 noremap ^ $
 noremap $ ^
 noremap <C-w><Tab> <C-w>w
-
 inoremap {<Enter> {}<Left><CR><ESC><S-o>
 inoremap [<Enter> []<Left><CR><ESC><S-o>
 inoremap (<Enter> ()<Left><CR><ESC><S-o>
@@ -65,7 +60,7 @@ if has('vim_starting')
 
   if !isdirectory(expand("~/.config/nvim/bundle/neobundle.vim/"))
       echo "install NeoBundle..."
-      :call system("git clone git://github.com/Shougo/neobundle.vim ~/.config/nvim/bundle/neobundle.vim")
+      call system("git clone git://github.com/Shougo/neobundle.vim ~/.config/nvim/bundle/neobundle.vim")
   endif
 endif
 
@@ -86,8 +81,8 @@ if !has('nvim')
 endif
 
 NeoBundle 'prettier/vim-prettier'
-NeoBundle 'natebosch/vim-lsc'
-NeoBundle 'nightsense/seabird'
+"NeoBundle 'natebosch/vim-lsc'
+"NeoBundle 'nightsense/seabird'
 NeoBundle 'bronson/vim-trailing-whitespace'
 NeoBundle 'Yggdroot/indentLine'
 NeoBundle 'itchyny/lightline.vim'
@@ -125,6 +120,10 @@ else
   inoremap <silent><expr> <c-@> coc#refresh()
 endif
 
+" Terminal Shortvut
+nmap <A-C-t>     :tabnew +term<Enter>
+nmap <A-n>     :set number!<Enter>
+
 " Symbol renaming.
 nmap <leader>rn <Plug>(coc-rename)
 
@@ -132,7 +131,22 @@ nmap <leader>rn <Plug>(coc-rename)
 xmap <leader>f  <Plug>(coc-format-selected)
 nmap <leader>f  <Plug>(coc-format-selected)
 
+" Use `[g` and `]g` to navigate diagnostics
+" Use `:CocDiagnostics` to get all diagnostics of current buffer in location list.
+nmap <silent> [g <Plug>(coc-diagnostic-prev)
+nmap <silent> ]g <Plug>(coc-diagnostic-next)
 
+" GoTo code navigation.
+nmap <silent> gd <Plug>(coc-definition)
+nmap <silent> gy <Plug>(coc-type-definition)
+nmap <silent> gi <Plug>(coc-implementation)
+nmap <silent> gr <Plug>(coc-references)
+
+" Apply AutoFix to problem on the current line.
+nmap <leader>qf  <Plug>(coc-fix-current)
+
+" Add `:Format` command to format current buffer.
+command! -nargs=0 Format :call CocActionAsync('format')
 
 NeoBundle 'thosakwe/vim-flutter'
 NeoBundle 'ConradIrwin/vim-bracketed-paste'
@@ -143,89 +157,15 @@ NeoBundle 'ryanoasis/vim-devicons'
 NeoBundle 'simeji/winresizer'
 
 
-"Coc で代用
-"NeoBundle 'w0rp/ale'
-
-let g:ale_sign_column_always = 1
-let g:ale_fix_on_save = 1
-let g:ale_completion_enabled = 1
-let g:ale_sign_error = 'X'
-let g:ale_sign_warning = '⚠'
-
-let g:ale_echo_msg_format = '[%linter%] %s [%severity%]'
-let g:ale_linters = {
-      \   'c' : ['clangd'],
-      \   'cpp' : ['clangd']
-  \}
-
 
 NeoBundle 'shime/vim-livedown'
 let g:livedown_browser= "chrome"
 
-"NeoBundle 'prabirshrestha/asyncomplete.vim'
-"NeoBundle 'prabirshrestha/asyncomplete-lsp.vim'
-NeoBundle 'prabirshrestha/vim-lsp'
-NeoBundle 'mattn/vim-lsp-settings'
-NeoBundle 'SirVer/ultisnips'
-NeoBundle 'honza/vim-snippets'
-NeoBundle 'thomasfaingnaert/vim-lsp-snippets'
-NeoBundle 'thomasfaingnaert/vim-lsp-ultisnips'
-"NeoBundle 'hrsh7th/vim-vsnip'
-"NeoBundle 'hrsh7th/vim-vsnip-integ'
 NeoBundle 'mattn/vim-goimports'
 
 " Rust Lang
 NeoBundle 'rust-lang/rust.vim'
 let g:rustfmt_autosave = 1
-
-function! s:on_lsp_buffer_enabled() abort
-  setlocal omnifunc=lsp#complete
-  setlocal signcolumn=yes
-  nmap <buffer> gd <plug>(lsp-definition)
-  nmap <buffer> <C-]> <plug>(lsp-definition)
-  nmap <buffer> <f2> <plug>(lsp-rename)
-  nmap <buffer> <Leader>d <plug>(lsp-type-definition)
-  nmap <buffer> <Leader>r <plug>(lsp-references)
-  nmap <buffer> <Leader>i <plug>(lsp-implementation)
-"  inoremap <expr> <cr> pumvisible() ? "\<c-y>\<cr>" : "\<cr>"
-endfunction
-
-augroup lsp_install
-  au!
-  autocmd User lsp_buffer_enabled call s:on_lsp_buffer_enabled()
-augroup END
-command! LspDebug let lsp_log_verbose=1 | let lsp_log_file = expand('~/lsp.log')
-
-let g:lsp_diagnostics_enabled = 1
-let g:lsp_diagnostics_echo_cursor = 1
-" let g:asyncomplete_auto_popup = 1
-" let g:asyncomplete_auto_completeopt = 0
-let g:asyncomplete_popup_delay = 200
-let g:lsp_text_edit_enabled = 1
-let g:lsp_preview_float = 1
-let g:lsp_diagnostics_float_cursor = 1
-let g:lsp_settings_filetype_go = ['gopls', 'golangci-lint-langserver']
-
-let g:lsp_settings = {}
-let g:lsp_settings['gopls'] = {
-  \  'workspace_config': {
-  \    'usePlaceholders': v:true,
-  \    'analyses': {
-  \      'fillstruct': v:true,
-  \    },
-  \  },
-  \  'initialization_options': {
-  \    'usePlaceholders': v:true,
-  \    'analyses': {
-  \      'fillstruct': v:true,
-  \    },
-  \  },
-  \}
-
-" For snippets
-let g:UltiSnipsExpandTrigger="<tab>"
-let g:UltiSnipsJumpForwardTrigger="<tab>"
-let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
 
 set completeopt+=menuone
 
@@ -252,9 +192,17 @@ let g:tex_coceal=''
 " Japanese Input
 NeoBundle 'vim-denops/denops.vim'
 NeoBundle 'vim-skk/skkeleton'
-NeoBundle 'vim-denops/denops-helloworld.vim'
+NeoBundle 'Shougo/ddc.vim'
+NeoBundle 'Shougo/ddc-sorter_rank'
+NeoBundle 'Shougo/ddc-matcher_head'
 
-let g:denops#deno = "$HOME/.deno/bin/deno"
+NeoBundle 'LumaKernel/ddc-file'
+NeoBundle 'Shougo/pum.vim'
+NeoBundle 'Shougo/ddc-sorter_rank'
+NeoBundle 'Shougo/ddc-matcher_head'
+NeoBundle 'Shougo/ddc-around'
+NeoBundle 'Shougo/ddc-converter_remove_overlap'
+
 
 
 imap <C-j> <Plug>(skkeleton-toggle)
@@ -263,10 +211,60 @@ cmap <C-j> <Plug>(skkeleton-toggle)
 
 call neobundle#end()
 
-
 call skkeleton#config({
-\'eggLikeNewline':v:true
+\'globalJisyo': expand('~/.skkeleton/SKK-JISYO.L'),
+\'eggLikeNewline':v:true,
+\'keepState':v:false,
+\'userJisyo': expand('~/.skkleton/USER'),
 \})
+call skkeleton#config({'completionRankFile': '~/.skkeleton/rank.json'})
+
+function DdcSettings() abort
+    call ddc#custom#patch_global('autoCompleteEvents',
+    \   ['InsertEnter', 'TextChangedI', 'TextChangedP'])
+    call ddc#custom#patch_global('sources', ['skkeleton','around','file'])
+    call ddc#custom#patch_global('sourceOptions', {
+    \   '_': {
+    \     'matchers': ['matcher_head'],
+    \     'sorters': ['sorter_rank']
+    \   },
+    \   'skkeleton': {
+    \     'mark': 'skkeleton',
+    \     'matchers': ['skkeleton'],
+    \     'sorters': [],
+    \     'minAutoCompleteLength': 2,
+    \   },
+    \   'around': {'mark':'Around'},
+    \   'file': {
+    \   'mark': 'file',
+    \   'isVolatile': v:true,
+    \   'forceCompletionPattern': '\S/\S*'
+    \  }
+    \ })
+endfunction
+
+function s:enable_ddc() abort
+  call <Plug>CocDisable()
+  call DdcSettings()
+endfunction
+
+function s:disable_ddc() abort
+  call <Plug>CocEnable()
+  "let b:coc_suggest_disable = 0
+  call ddc#custom#patch_global('autoCompleteEvents', [])
+endfunction
+
+" initialize
+call <sid>disable_ddc()
+
+
+augroup skkeleton-ddc
+  autocmd!
+  autocmd User skkeleton-enable-pre  call <sid>enable_ddc()
+  autocmd User skkeleton-disable-pre call <sid>disable_ddc()
+augroup END
+
+call ddc#enable()
 let g:airline#extensions#tabline#enabled = 1
 let g:airline_theme = 'luna'
 "let g:airline_powerline_fonts = 1
