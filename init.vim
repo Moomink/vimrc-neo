@@ -22,9 +22,8 @@ autocmd Filetype html setlocal expandtab tabstop=2 shiftwidth=2 softtabstop=2
 autocmd Filetype javascript setlocal expandtab tabstop=2 shiftwidth=2 softtabstop=2
 autocmd Filetype eruby setlocal expandtab tabstop=4 shiftwidth=4 softtabstop=4
 autocmd Filetype typescript setlocal expandtab tabstop=2 shiftwidth=2 softtabstop=2
-autocmd Filetype css setlocal expandtab tabstop=2 shiftwidth=2 softtabstop=2
+autocmd Filetype css setlocal expandtab tabstop=2 shiftwidth=2 softtabstop=2 iskeyword+=-
 autocmd Filetype dart setlocal expandtab tabstop=2 shiftwidth=2 softtabstop=2
-
 
 noremap ^ $
 noremap $ ^
@@ -124,8 +123,16 @@ endif
 nmap <A-C-t>     :tabnew +term<Enter>
 nmap <A-n>     :set number!<Enter>
 
+let mapleader = "\\"
+
 " Symbol renaming.
 nmap <leader>rn <Plug>(coc-rename)
+
+" Highlight the symbol and its references when holding the cursor.
+autocmd CursorHold * silent call CocActionAsync('highlight')
+
+" Use K to show documentation in preview window.
+nnoremap <silent> K :call <SID>show_documentation()<CR>
 
 " Formatting selected code.
 xmap <leader>f  <Plug>(coc-format-selected)
@@ -147,6 +154,8 @@ nmap <leader>qf  <Plug>(coc-fix-current)
 
 " Add `:Format` command to format current buffer.
 command! -nargs=0 Format :call CocActionAsync('format')
+nmap <C-A-l>    <Plug>(coc-format)
+imap <C-A-l>    <Plug>(coc-format)
 
 NeoBundle 'thosakwe/vim-flutter'
 NeoBundle 'ConradIrwin/vim-bracketed-paste'
@@ -156,6 +165,8 @@ NeoBundle 'vim-airline/vim-airline-themes'
 NeoBundle 'ryanoasis/vim-devicons'
 NeoBundle 'simeji/winresizer'
 
+
+NeoBundle 'mattn/emmet-vim'
 
 
 NeoBundle 'shime/vim-livedown'
@@ -244,13 +255,14 @@ function DdcSettings() abort
 endfunction
 
 function s:enable_ddc() abort
-  call <Plug>CocDisable()
+  "call CocDisable()
+  let b:coc_suggest_disable = 1
   call DdcSettings()
 endfunction
 
 function s:disable_ddc() abort
-  call <Plug>CocEnable()
-  "let b:coc_suggest_disable = 0
+  "call CocEnable()
+  let b:coc_suggest_disable = 0
   call ddc#custom#patch_global('autoCompleteEvents', [])
 endfunction
 
@@ -273,11 +285,12 @@ filetype plugin indent on
 syntax enable
 colorscheme  gotham256 "テーマ設定
 
+
 " HTML
 augroup HTMLANDXML
   autocmd!
-  autocmd Filetype xml inoremap <buffer> </ </<C-x><C-o>
-  autocmd Filetype html inoremap <buffer> </ </<C-x><C-o>
+  autocmd Filetype html inoremap <buffer> </<CR> </<C-x><C-o><ESC>F>a<CR><ESC>O
+  autocmd Filetype html inoremap <buffer> </<Tab> </<C-x><C-o><ESC>F>a
 augroup END
 
 
