@@ -32,6 +32,9 @@ inoremap {<Enter> {}<Left><CR><ESC><S-o>
 inoremap [<Enter> []<Left><CR><ESC><S-o>
 inoremap (<Enter> ()<Left><CR><ESC><S-o>
 
+imap <C-a>  <Home>
+imap <C-e>  <End>
+
 tnoremap <Esc> <C-\><C-n>
 
 filetype off
