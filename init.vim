@@ -3,8 +3,9 @@ scriptencoding utf-8
 set fileformats=unix,dos,mac
 set ambiwidth=double
 set fileencoding=utf-8
-set fileencodings=ucs-boms,utf-8,euc-jp,cp932
+set fileencodings=utf-8,euc-jp,cp932
 set expandtab
+set smarttab
 set tabstop=4
 set softtabstop=4
 set autoindent
@@ -15,6 +16,7 @@ set number
 set cursorline
 set clipboard+=unnamed
 set showmatch
+
 " Tab settings according to filetype (https://stackoverflow.com/questions/39783724/vim-airline-config-screwed-up)
 autocmd Filetype python setlocal expandtab tabstop=4 shiftwidth=4 softtabstop=4
 autocmd Filetype ruby setlocal expandtab tabstop=2 shiftwidth=2 softtabstop=2
@@ -86,7 +88,16 @@ NeoBundle 'prettier/vim-prettier'
 "NeoBundle 'natebosch/vim-lsc'
 "NeoBundle 'nightsense/seabird'
 NeoBundle 'bronson/vim-trailing-whitespace'
+
 NeoBundle 'Yggdroot/indentLine'
+let g:indentLine_color_term = 0xFF
+"let g:indentLine_bgcolor_term = 0xEE
+let g:indentLine_first_char = '░'
+let g:indentLine_showFirstIndentLevel = 1
+let g:indentLine_char_list = ['❙','¦','|']
+let g:indentLine_leadingSpaceChar = '░'
+let g:indentLine_leadingSpaceEnabled = 0
+
 NeoBundle 'itchyny/lightline.vim'
 NeoBundle 'dart-lang/dart-vim-plugin'
 " NeoBundle 'natebosch/vim-lsc-dart'
@@ -124,6 +135,7 @@ endif
 
 " Terminal Shortvut
 nmap <A-C-t>     :tabnew +term<Enter>
+nmap <A-@>    :sp +term<Enter>
 nmap <A-n>     :set number!<Enter>
 
 let mapleader = "\\"
@@ -162,7 +174,6 @@ imap <C-A-l>    <Plug>(coc-format)
 
 NeoBundle 'thosakwe/vim-flutter'
 NeoBundle 'ConradIrwin/vim-bracketed-paste'
-NeoBundle 'whatyouhide/vim-gotham'
 NeoBundle 'vim-airline/vim-airline'
 NeoBundle 'vim-airline/vim-airline-themes'
 NeoBundle 'ryanoasis/vim-devicons'
@@ -216,6 +227,11 @@ NeoBundle 'Shougo/ddc-sorter_rank'
 NeoBundle 'Shougo/ddc-matcher_head'
 NeoBundle 'Shougo/ddc-around'
 NeoBundle 'Shougo/ddc-converter_remove_overlap'
+
+"" Theme
+NeoBundle '4513ECHO/vim-colors-hatsunemiku'
+NeoBundle 'whatyouhide/vim-gotham'
+NeoBundle 'arcticicestudio/nord-vim'
 
 
 
@@ -282,11 +298,13 @@ augroup END
 call ddc#enable()
 let g:airline#extensions#tabline#enabled = 1
 let g:airline_theme = 'luna'
-"let g:airline_powerline_fonts = 1
+"let g:airline_theme = 'gotham256'
+let g:airline_powerline_fonts = 1
 
 filetype plugin indent on
 syntax enable
-colorscheme  gotham256 "テーマ設定
+
+
 
 
 " HTML
@@ -307,9 +325,23 @@ set shortmess-=F
 set mouse=a
 
 
+
+" Theme select
+colorscheme nord "テーマ設定
+
+" Current Disable
+if !has('gui_running') && has('termguicolors') && g:colors_name == 'hatsunemiku' && 0
+  " Use true colors (recommended)
+  set termguicolors
+endif
+
+
+
+
+
 " 背景透過
-"highlight Normal ctermbg=none
-"highlight NonText ctermbg=none
-"highlight LineNr ctermbg=none
-"highlight Folded ctermbg=none
-"highlight EndOfBuffer ctermbg=none
+highlight Normal ctermbg=none
+highlight NonText ctermbg=none
+highlight LineNr ctermbg=none
+highlight Folded ctermbg=none
+highlight EndOfBuffer ctermbg=none
