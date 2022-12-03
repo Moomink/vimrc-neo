@@ -64,7 +64,7 @@ if has('vim_starting')
 
   if !isdirectory(expand("~/.config/nvim/bundle/neobundle.vim/"))
       echo "install NeoBundle..."
-      call system("git clone git://github.com/Shougo/neobundle.vim ~/.config/nvim/bundle/neobundle.vim")
+      call system("git clone --depth 1 https://github.com/Shougo/neobundle.vim ~/.config/nvim/bundle/neobundle.vim")
   endif
 endif
 
@@ -84,6 +84,9 @@ if !has('nvim')
   NeoBundle 'roxma/vim-hug-neovim-rpc'
 endif
 
+
+NeoBundle 'elkowar/yuck.vim'
+
 NeoBundle 'prettier/vim-prettier'
 "NeoBundle 'natebosch/vim-lsc'
 "NeoBundle 'nightsense/seabird'
@@ -101,7 +104,7 @@ let g:indentLine_leadingSpaceEnabled = 0
 NeoBundle 'itchyny/lightline.vim'
 NeoBundle 'dart-lang/dart-vim-plugin'
 " NeoBundle 'natebosch/vim-lsc-dart'
-let g:dart_format_on_save = 1
+"let g:dart_format_on_save = 1
 
 NeoBundle 'neoclide/coc.nvim', 'release'
 
@@ -114,11 +117,21 @@ else
   set signcolumn=yes
 endif
 
+
 inoremap <silent><expr> <TAB>
-      \ pumvisible() ? "\<C-n>" :
-      \ <SID>check_back_space() ? "\<TAB>" :
+      \ coc#pum#visible() ? coc#pum#next(1) :
+      \ CheckBackspace() ? "\<Tab>" :
       \ coc#refresh()
-inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
+inoremap <expr><S-TAB> coc#pum#visible() ? coc#pum#prev(1) : "\<C-h>"
+
+function! CheckBackspace() abort
+  let col = col('.') - 1
+  return !col || getline('.')[col - 1]  =~# '\s'
+endfunction
+
+
+inoremap <silent><expr> <CR> coc#pum#visible() ? coc#pum#confirm()
+                              \: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
 
 function! s:check_back_space() abort
   let col = col('.') - 1
@@ -179,6 +192,8 @@ NeoBundle 'vim-airline/vim-airline-themes'
 NeoBundle 'ryanoasis/vim-devicons'
 NeoBundle 'simeji/winresizer'
 
+
+NeoBundle 'udalov/kotlin-vim'
 
 NeoBundle 'mattn/emmet-vim'
 
