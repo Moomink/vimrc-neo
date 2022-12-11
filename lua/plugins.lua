@@ -37,16 +37,6 @@ return require('packer').startup(function(use)
 
     use 'ConradIrwin/vim-bracketed-paste'
 
-    use 'vim-airline/vim-airline'
-    use 'vim-airline/vim-airline-themes'
-    use {
-        'ryanoasis/vim-devicons',
-        config = function()
-            vim.cmd([[
-                let g:airline#extensions#tabline#enabled = 1
-            ]])
-        end
-    }
 
     use 'simeji/winresizer'
     use 'ap/vim-css-color'
@@ -55,6 +45,11 @@ return require('packer').startup(function(use)
         config = 'vim.keymap.set("","<C-n>",":NERDTreeToggle<CR>")'
     }
 
+
+    -- Utility
+    use 'jiangmiao/auto-pairs'
+    use 'tpope/vim-surround'
+    use 'tomtom/tcomment_vim'
 
     -- Theme
 	use {
@@ -67,9 +62,41 @@ return require('packer').startup(function(use)
             vim.cmd [[colorscheme hatsunemiku]]
         end
     }
-
 	use 'whatyouhide/vim-gotham'
 	use 'arcticicestudio/nord-vim'
+    use 'tomasiser/vim-code-dark'
+
+    use {
+        'vim-airline/vim-airline',
+        config = function()
+            vim.cmd([[
+                let g:airline_powerline_fonts = 1
+                let g:airline_theme='codedark'
+            ]])
+	    end
+    }
+    use 'vim-airline/vim-airline-themes'
+    use {
+        'ryanoasis/vim-devicons',
+        config = function()
+            vim.cmd([[
+                let g:airline#extensions#tabline#enabled = 1
+            ]])
+        end
+    }
+    use 'lambdalisue/nerdfont.vim'
+
+
+    -- Language Server Protocol
+    use {
+        "williamboman/mason.nvim",
+        "williamboman/mason-lspconfig.nvim",
+        "neovim/nvim-lspconfig",
+        'lukas-reineke/lsp-format.nvim',
+        'hrsh7th/nvim-cmp',
+        'hrsh7th/cmp-nvim-lsp',
+        'hrsh7th/vim-vsnip'
+    }
 
     if packer_bootstrap then
         require('packer').sync()
