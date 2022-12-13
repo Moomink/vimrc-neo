@@ -61,8 +61,8 @@ cmp.setup({
     },
     sources = {
         { name = "nvim_lsp" },
-        -- { name = "buffer" },
-        -- { name = "path" },
+        { name = "buffer" },
+        { name = "path" },
     },
     mapping = cmp.mapping.preset.insert({
         ["<C-p>"] = cmp.mapping.select_prev_item(),
@@ -70,8 +70,28 @@ cmp.setup({
         ['<C-l>'] = cmp.mapping.complete(),
         ['<C-e>'] = cmp.mapping.abort(),
         ["<CR>"] = cmp.mapping.confirm { select = true },
+        ['<C-b>'] = cmp.mapping.scroll_docs(-4),
+        ['<C-f>'] = cmp.mapping.scroll_docs(4),
+        ['<C-Space>'] = cmp.mapping.complete(),
+        ['<C-e>'] = cmp.mapping.abort(),
+        ['<CR>'] = cmp.mapping.confirm({ select = true }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
     }),
     experimental = {
         ghost_text = true,
     },
+
+
+    window = {
+        --completion = cmp.config.window.bordered(),
+        --documentation = cmp.config.window.bordered(),
+    },
+
+    cmp.setup.cmdline(':', {
+        mapping = cmp.mapping.preset.cmdline(),
+        sources = cmp.config.sources({
+            { name = 'path' }
+        }, {
+            { name = 'cmdline' }
+        })
+    })
 })

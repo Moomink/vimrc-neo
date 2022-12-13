@@ -3,9 +3,9 @@ local fn = vim.fn
 
 -- Initilaize Installl
 local ensure_packer = function()
-    local install_path = fn.stdpath('config')..'lua/packer.nvim'
+    local install_path = fn.stdpath('config') .. 'lua/packer.nvim'
     if fn.empty(fn.glob(install_path)) > 0 then
-        fn.system({'git', 'clone', '--depth', '1', 'https://github.com/wbthomason/packer.nvim', install_path})
+        fn.system({ 'git', 'clone', '--depth', '1', 'https://github.com/wbthomason/packer.nvim', install_path })
         vim.opt.runtimepath:append(install_path)
         return true
     end
@@ -52,9 +52,9 @@ return require('packer').startup(function(use)
     use 'tomtom/tcomment_vim'
 
     -- Theme
-	use {
+    use {
         '4513ECHO/vim-colors-hatsunemiku',
-    -- TODO add hatsune symblic link
+        -- TODO add hatsune symblic link
         config = function()
             if vim.fn.has("gui_running") ~= 1 and vim.fn.has('termguicolors') == 1 then
                 vim.opt.termguicolors = true
@@ -62,8 +62,8 @@ return require('packer').startup(function(use)
             vim.cmd [[colorscheme hatsunemiku]]
         end
     }
-	use 'whatyouhide/vim-gotham'
-	use 'arcticicestudio/nord-vim'
+    use 'whatyouhide/vim-gotham'
+    use 'arcticicestudio/nord-vim'
     use 'tomasiser/vim-code-dark'
 
     use {
@@ -73,7 +73,7 @@ return require('packer').startup(function(use)
                 let g:airline_powerline_fonts = 1
                 let g:airline_theme='codedark'
             ]])
-	    end
+        end
     }
     use 'vim-airline/vim-airline-themes'
     use {
@@ -95,10 +95,14 @@ return require('packer').startup(function(use)
         'lukas-reineke/lsp-format.nvim',
         'hrsh7th/nvim-cmp',
         'hrsh7th/cmp-nvim-lsp',
-        'hrsh7th/vim-vsnip'
+        'hrsh7th/vim-vsnip',
+        'hrsh7th/cmp-buffer',
+        'hrsh7th/cmp-path',
+        'hrsh7th/cmp-cmdline'
+
     }
 
     if packer_bootstrap then
         require('packer').sync()
-  end
+    end
 end)
