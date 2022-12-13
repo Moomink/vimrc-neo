@@ -12,8 +12,8 @@ map.set('i', '{<Enter>', '{}<Left><CR><ESC><S-o>')
 map.set('i', '[<Enter>', '[]<Left><CR><ESC><S-o>')
 map.set('i', '(<Enter>', '()<Left><CR><ESC><S-o>')
 
-map.set('i', '<C-a>', '<Home>')
-map.set('i', '<C-e>', '<End>')
+map.set('i', '<C-d>a', '<Home>')
+map.set('i', '<C-d>d', '<End>')
 
 map.set('t', '<Esc>', '<C-\\><C-n>')
 
