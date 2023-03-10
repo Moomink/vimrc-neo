@@ -23,3 +23,6 @@ map.set('n', '<A-n>', ':set number!<Enter>')
 
 map.set('', '<C-Left>', ':tabprevious<CR>')
 map.set('', '<C-Right>', ':tabnext<CR>')
+
+map.set('', '<C-S-Left>', ':bprev<CR>')
+map.set('', '<C-S-Right>', ':bnext<CR>')

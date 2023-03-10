@@ -50,6 +50,11 @@ return require('packer').startup(function(use)
     use 'jiangmiao/auto-pairs'
     use 'tpope/vim-surround'
     use 'tomtom/tcomment_vim'
+    use({
+    "iamcco/markdown-preview.nvim",
+    run = function() vim.fn["mkdp#util#install"]() end,
+    })
+    use 'elkowar/yuck.vim'
 
     -- Theme
     use {
