@@ -47,6 +47,7 @@ return require('packer').startup(function(use)
 
 
     -- Utility
+    use 'lambdalisue/suda.vim'
     use 'jiangmiao/auto-pairs'
     use 'tpope/vim-surround'
     use 'tomtom/tcomment_vim'
@@ -54,7 +55,7 @@ return require('packer').startup(function(use)
     "iamcco/markdown-preview.nvim",
     run = function() vim.fn["mkdp#util#install"]() end,
     })
-    use 'elkowar/yuck.vim'
+    use 'vimwiki/vimwiki'
 
     -- Theme
     use {
@@ -70,6 +71,8 @@ return require('packer').startup(function(use)
     use 'whatyouhide/vim-gotham'
     use 'arcticicestudio/nord-vim'
     use 'tomasiser/vim-code-dark'
+
+    use 'vimwiki/vimwiki'
 
     use {
         'vim-airline/vim-airline',
