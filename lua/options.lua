@@ -48,3 +48,7 @@ vim.cmd([[
     highlight Folded ctermbg=none
     highlight EndOfBuffer ctermbg=none
 ]])
+
+
+-- Theme
+vim.cmd([[colorscheme hatsunemiku]])

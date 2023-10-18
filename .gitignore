@@ -1,4 +1,5 @@
 lua/packer_nvim
+lua/pckr.nvim
 
 pack
 plugin
