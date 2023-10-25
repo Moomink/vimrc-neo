@@ -20,18 +20,57 @@ end
 })
 
 
-require("formatter").setup {
-  -- Enable or disable logging
-  logging = true,
-  -- Set the log level
-  log_level = vim.log.levels.WARN,
-  -- All formatter configurations are opt-in
-  ["*"] = {
-      -- "formatter.filetypes.any" defines default configurations for any
-      -- filetype
-      require("formatter.filetypes.any").remove_trailing_whitespace
-  }
-}
+-- Formatter
+function dump(o)
+    if type(o) == 'table' then
+        local s = '{ '
+        for k, v in pairs(o) do
+            if type(k) ~= 'number' then k = '"' .. k .. '"' end
+            s = s .. '[' .. k .. '] = ' .. dump(v) .. ','
+        end
+        return s .. '} '
+    else
+        return tostring(o)
+    end
+end
+
+local formatter_list = {};
+
+local mason_registry = require("mason-registry")
+local mason_package = require("mason-core.package")
+
+for _, pkg in pairs(mason_registry.get_all_package_specs()) do
+    if mason_registry.is_installed(pkg.name) ~= true then
+        goto continue
+    end
+
+    local package = mason_registry.get_package(pkg.name)
+
+    local categories = pkg.categories
+    for _, cat in pairs(categories) do
+        if cat == mason_package.Cat.Formatter then
+            package:get_receipt():if_present(function(receipt)
+                formatter_list[pkg.name] = {
+                    command = package:get_install_path() .. "/" .. receipt.links.bin[receipt.name],
+                }
+            end)
+        end
+    end
+    ::continue::
+end
+
+require("conform").setup({
+    log_level = vim.log.levels.INFO,
+    format_on_save = {
+        -- These options will be passed to conform.format()
+        timeout_ms = 500,
+        lsp_fallback = true,
+    },
+})
+
+for k, v in pairs(formatter_list) do
+    require("conform").formatters[v] = { command = v["command"], }
+end
 
 
 -- https://zenn.dev/botamotch/articles/21073d78bc68bf
@@ -47,7 +86,7 @@ vim.keymap.set('n', 'ga', '<cmd>lua vim.lsp.buf.code_action()<CR>')
 vim.keymap.set('n', 'ge', '<cmd>lua vim.diagnostic.open_float()<CR>')
 vim.keymap.set('n', 'g]', '<cmd>lua vim.diagnostic.goto_next()<CR>')
 vim.keymap.set('n', 'g[', '<cmd>lua vim.diagnostic.goto_prev()<CR>')
-vim.keymap.set('n', '<C-A-l>', ':Format<Enter>')
+vim.keymap.set('n', '<C-A-l>', '<cmd>lua vim.lsp.buf.format{async = true}<CR>')
 
 vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
     vim.lsp.diagnostic.on_publish_diagnostics, { virtual_text = false }
