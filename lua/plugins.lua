@@ -94,20 +94,20 @@ require('pckr').add {
             require('mini.indentscope').setup()
         end
     },
-     { 
-         'echasnovski/mini.surround',
-         branch = 'stable',
-         config = function()
-             require('mini.surround').setup()
-         end
-     },
+    {
+        'echasnovski/mini.surround',
+        branch = 'stable',
+        config = function()
+            require('mini.surround').setup()
+        end
+    },
 
     {
         'akinsho/toggleterm.nvim',
         config = function()
             require("toggleterm").setup()
         end,
-        cond = keys("", '<A-@>'),
+        cond = cmd('ToggleTerm'),
     },
     {
         'lambdalisue/suda.vim',
@@ -147,7 +147,7 @@ require('pckr').add {
 
     {
         'vim-airline/vim-airline',
-        requires = { "vim-airline-themes", "vim-devicons", "nerdfont.vim" },
+        requires = { "vim-airline/vim-airline-themes", "ryanoasis/vim-devicons", "lambdalisue/nerdfont.vim" },
         config = function()
             vim.cmd [[
                 let g:airline_powerline_fonts = 1

@@ -18,7 +18,7 @@ map.set('i', '<C-d>d', '<End>')
 map.set('t', '<Esc>', '<C-\\><C-n>')
 
 map.set('n', '<A-C-t>', ':tabnew +term<Enter>')
-map.set('n', '<A-@>', ':ToggleTerm<Enter>')
+map.set({ 'n', 't' }, '<A-@>', '<cmd>ToggleTerm<Enter>')
 map.set('n', '<A-n>', ':set number!<Enter>')
 
 map.set('', '<C-Left>', ':tabprevious<CR>')
