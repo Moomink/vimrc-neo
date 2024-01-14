@@ -31,7 +31,7 @@ if vim.fn.has("linux") and vim.api.nvim_exec("!cat /etc/os-release | grep '^NAME
             ):sub(1, -2)
             for _, rel_path in pairs(receipt.links.bin) do
                 local bin_abs_path = pkg:get_install_path() .. "/" .. rel_path
-                print("path is " .. bin_abs_path)
+                -- print("path is " .. bin_abs_path)
                 if is_bin(bin_abs_path) == true then
                     local patch_cmd = ('patchelf --set-interpreter %s %s'):format(interpreter, bin_abs_path)
                     return_exe_value(patch_cmd)

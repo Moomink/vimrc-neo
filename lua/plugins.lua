@@ -68,6 +68,7 @@ require('pckr').add {
         'echasnovski/mini.map',
         branch = 'stable',
         config = function()
+            vim.keymap.set("", "<C-A-n>", ":lua MiniMap:toggle()<CR>")
             local minimap = require('mini.map')
             minimap.setup({
                 integrations = {

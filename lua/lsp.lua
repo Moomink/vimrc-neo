@@ -19,6 +19,10 @@ require("mason-lspconfig").setup_handlers({ function(server)
 end
 })
 
+require("lspconfig").dartls.setup{
+    cmd = { "dart", "language-server", "--protocol=lsp" },
+}
+
 
 -- Formatter
 function dump(o)
