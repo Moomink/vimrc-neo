@@ -26,3 +26,5 @@ map.set('', '<C-Right>', ':tabnext<CR>')
 
 map.set('', '<C-S-Left>', ':bprev<CR>')
 map.set('', '<C-S-Right>', ':bnext<CR>')
+
+vim.api.nvim_set_var('mapleader', ',')

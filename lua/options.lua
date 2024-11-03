@@ -21,6 +21,7 @@ local options = {
     mouse = "a",
     wildmenu = true,
     relativenumber = true,
+    timeout = false,
 }
 
 vim.opt.completeopt:append({ menuone = true })
