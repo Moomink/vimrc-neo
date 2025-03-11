@@ -216,25 +216,13 @@ require('pckr').add {
   'arcticicestudio/nord-vim',
   'tomasiser/vim-code-dark',
 
-  -- 'vimwiki/vimwiki';
-
   {
-    'vim-airline/vim-airline',
-    requires = { "vim-airline/vim-airline-themes", "ryanoasis/vim-devicons", "lambdalisue/nerdfont.vim" },
+    'nvim-lualine/lualine.nvim',
+    requires = { 'nvim-tree/nvim-web-devicons' },
     config = function()
-      vim.cmd [[
-                let g:airline_powerline_fonts = 1
-                let g:airline#extensions#tabline#enabled = 1
-                let g:airline#extensions#tabline#formatter = 'unique_tail_improved'
-            ]]
-    end
-  },
-  {
-    'vim-airline/vim-airline-themes',
-    config = function()
-      vim.cmd([[
-	            let g:airline_theme='cobalt2'
-	        ]])
+      require('lualine').setup{
+        options = { theme = 'solarized_dark' },
+      }
     end
   },
   {
