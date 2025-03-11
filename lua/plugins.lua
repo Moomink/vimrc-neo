@@ -258,5 +258,49 @@ require('pckr').add {
   'hrsh7th/cmp-path',
   'hrsh7th/vim-vsnip',
   'hrsh7th/cmp-cmdline',
-  'stevearc/conform.nvim',
+
+  {
+    'stevearc/conform.nvim',
+    config = function()
+      require('conform').setup({
+        lsp_format = "first"
+      })
+
+			vim.api.nvim_create_user_command("Format", function(args)
+		 		local range = nil
+		 	  if args.count ~= -1 then
+		 	  	local end_line = vim.api.nvim_buf_get_lines(0, args.line2 - 1, args.line2, true)[1]
+		 	   	range = {
+		 	    	start = { args.line1, 0 },
+		 	     	["end"] = { args.line2, end_line:len() },
+		 	   	}
+		 	 end
+		 	 require("conform").format({ async = true, lsp_format = "fallback", range = range })
+			end, { range = true })
+    end,
+		cond = cmd("Format")
+  },
+
+  {
+		"zapling/mason-conform.nvim",
+    requires = {
+      "williamboman/mason.nvim",
+      "stevearc/conform.nvim",
+    },
+		config = function()
+			require("mason-conform").setup({})
+		end
+  },
+
+
+  {
+    'Exafunction/codeium.nvim',
+    requires = {
+        "nvim-lua/plenary.nvim",
+        "hrsh7th/nvim-cmp",
+    },
+    config = function()
+        require("codeium").setup({})
+    end
+  },
 }

@@ -19,6 +19,7 @@ require("mason-lspconfig").setup_handlers({ function(server)
 end
 })
 
+-- Dart
 require("lspconfig").dartls.setup{
     cmd = { "dart", "language-server", "--protocol=lsp" },
 }
@@ -63,6 +64,7 @@ for _, pkg in pairs(mason_registry.get_all_package_specs()) do
     ::continue::
 end
 
+
 require("conform").setup({
     log_level = vim.log.levels.INFO,
     format_on_save = {
@@ -72,9 +74,7 @@ require("conform").setup({
     },
 })
 
-for k, v in pairs(formatter_list) do
-    require("conform").formatters[v] = { command = v["command"], }
-end
+
 
 
 -- https://zenn.dev/botamotch/articles/21073d78bc68bf
@@ -117,6 +117,7 @@ cmp.setup({
         { name = "nvim_lsp" },
         { name = "buffer" },
         { name = "path" },
+        { name = "codeium" }, -- codeium
     },
     mapping = cmp.mapping.preset.insert({
         ["<C-p>"] = cmp.mapping.select_prev_item(),
@@ -140,12 +141,15 @@ cmp.setup({
         --documentation = cmp.config.window.bordered(),
     },
 
-    cmp.setup.cmdline(':', {
+
+
+})
+
+cmp.setup.cmdline(':', {
         mapping = cmp.mapping.preset.cmdline(),
         sources = cmp.config.sources({
             { name = 'path' }
         }, {
             { name = 'cmdline' }
         })
-    })
 })
