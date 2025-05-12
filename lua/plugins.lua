@@ -221,7 +221,7 @@ require('pckr').add {
     requires = { 'nvim-tree/nvim-web-devicons' },
     config = function()
       require('lualine').setup{
-        options = { theme = 'solarized_dark' },
+        options = { theme = 'papercolor_light' },
       }
     end
   },
