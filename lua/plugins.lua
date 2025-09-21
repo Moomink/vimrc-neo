@@ -96,6 +96,7 @@ require('pckr').add {
     requires = {
       "MunifTanjim/nui.nvim",
       "rcarriga/nvim-notify",
+      "nvim-treesitter/nvim-treesitter",
     },
     config = function()
       local noice = require("noice")
@@ -281,14 +282,7 @@ require('pckr').add {
   },
 
 
-  {
-    'Exafunction/codeium.nvim',
-    requires = {
-        "nvim-lua/plenary.nvim",
-        "hrsh7th/nvim-cmp",
-    },
-    config = function()
-        require("codeium").setup({})
-    end
-  },
+  "github/copilot.vim",
+
+
 }

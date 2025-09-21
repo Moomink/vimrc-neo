@@ -10,14 +10,14 @@ require("mason").setup({
 
 require("lsp-format").setup {}
 
-require("mason-lspconfig").setup_handlers({ function(server)
+require("mason-lspconfig").setup{ function(server)
     local opt = {
         capabilities = require('cmp_nvim_lsp').default_capabilities(),
         on_attach = require("lsp-format").on_attach
     }
     require('lspconfig')[server].setup(opt)
 end
-})
+}
 
 -- Dart
 require("lspconfig").dartls.setup{
