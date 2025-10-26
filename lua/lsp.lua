@@ -10,14 +10,16 @@ require("mason").setup({
 
 require("lsp-format").setup {}
 
-require("mason-lspconfig").setup{ function(server)
+require("mason-lspconfig").setup({ function(server)
     local opt = {
-        capabilities = require('cmp_nvim_lsp').default_capabilities(),
+        capabilities = require('cmp_nvim_lsp').update_capabilities(
+          vim.lsp.protocol.make_client_capabilities()
+        ),
         on_attach = require("lsp-format").on_attach
     }
     require('lspconfig')[server].setup(opt)
 end
-}
+})
 
 -- Dart
 require("lspconfig").dartls.setup{
@@ -150,13 +152,15 @@ cmp.setup({
         ghost_text = true,
     },
 
+		performance = {
+				fetching_timeout = 2000,
+		},
+
 
     window = {
         --completion = cmp.config.window.bordered(),
         --documentation = cmp.config.window.bordered(),
     },
-
-
 
 })
 

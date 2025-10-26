@@ -161,6 +161,25 @@ require('pckr').add {
     end
   },
 
+
+  {
+    "lewis6991/gitsigns.nvim",
+    config = function()
+      require('gitsigns').setup({
+        signs = {
+          add          = { text = '+' },
+          change       = { text = '┃' },
+          delete       = { text = '_' },
+        },
+        signs_staged = {
+          add          = { text = '+' },
+          change       = { text = '┃' },
+          delete       = { text = '_' },
+        },
+      })
+     end
+   },
+
   {
     'akinsho/toggleterm.nvim',
     config = function()
