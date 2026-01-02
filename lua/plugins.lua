@@ -121,36 +121,6 @@ require('pckr').add {
     end
   },
 
-  {
-    "amitds1997/remote-nvim.nvim",
-    requires = {
-      "nvim-lua/plenary.nvim",
-      "MunifTanjim/nui.nvim",
-      "nvim-telescope/telescope.nvim",
-    },
-    config = function()
-      require("remote-nvim").setup({
-        ssh_config = {
-          ssh_prompt =  {
-				    {
-					    match = "Enter passphrase for key",
-					    type = "secret", -- パスフレーズはシークレットとして扱う
-					    value_type = "static", -- 毎回新しいパスフレーズを入力するか
-				      value = "", -- 初期値
-				    },
-          },
-        },
-      })
-    end,
-    cond = {
-      cmd('RemoteStart'),
-      cmd('RemoteStop'),
-      cmd('RemoteInfo'),
-      cmd('RemoteLog'),
-      cmd('RemoteCleanup'),
-    },
-  },
-
   --- mini.nvim
   {
     'echasnovski/mini.map',
@@ -332,6 +302,24 @@ require('pckr').add {
 
 
   "github/copilot.vim",
-
-
+  {
+    -- https://github.com/CopilotC-Nvim/CopilotChat.nvim
+    "CopilotC-Nvim/CopilotChat.nvim",
+    requires = {
+      "nvim-lua/plenary.nvim",
+      "github/copilot.vim",
+    },
+    config = function()
+      require("CopilotChat").setup({
+        model = 'gpt-4.1',           -- AI model to use
+        temperature = 0.1,           -- Lower = focused, higher = creative
+        window = {
+          layout = 'vertical',       -- 'vertical', 'horizontal', 'float'
+          width = 0.5,              -- 50% of screen width
+          height = 0.6,             -- 60% of screen height},
+          auto_insert_mode = true,     -- Enter insert mode when opening
+        },
+      })
+    end,
+  },
 }
