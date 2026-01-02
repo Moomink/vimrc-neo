@@ -10,36 +10,45 @@ require("mason").setup({
 
 require("lsp-format").setup {}
 
-require("mason-lspconfig").setup({ function(server)
-    local opt = {
-        capabilities = require('cmp_nvim_lsp').update_capabilities(
-          vim.lsp.protocol.make_client_capabilities()
-        ),
-        on_attach = require("lsp-format").on_attach
+require("mason-lspconfig").setup({
+    handlers = {
+        -- default handler
+        function(server_name)
+            require('lspconfig')[server_name].setup({
+                on_attach = on_attach,
+                capabilities = capabilities,
+            })
+        end,
+
+        -- Dart
+        ['dartls'] = function()
+            require('lspconfig').dartls.setup({
+                on_attach = on_attach,
+                capabilities = capabilities,
+                cmd = { "dart", "language-server", "--protocol=lsp" },
+            })
+        end,
+
+        -- Go
+        ['gopls'] = function()
+            require('lspconfig').gopls.setup({
+                on_attach = on_attach,
+                capabilities = capabilities,
+                cmd = { "gopls", "serve" },
+                filetypes = { "go", "gomod" },
+                root_dir = require("lspconfig").util.root_pattern("go.mod", "go.sum"),
+                settings = {
+                    gopls = {
+                        analyses = {
+                            unusedparams = true,
+                        },
+                        staticcheck = true,
+                    },
+                },
+            })
+        end
     }
-    require('lspconfig')[server].setup(opt)
-end
 })
-
--- Dart
-require("lspconfig").dartls.setup{
-    cmd = { "dart", "language-server", "--protocol=lsp" },
-}
-
--- Go
-require("lspconfig").gopls.setup{
-    cmd = { "gopls", "serve" },
-    filetypes = { "go", "gomod" },
-    root_dir = require("lspconfig").util.root_pattern("go.mod", "go.sum"),
-    settings = {
-        gopls = {
-            analyses = {
-                unusedparams = true,
-            },
-            staticcheck = true,
-        },
-    },
-}
 
 
 -- Formatter
