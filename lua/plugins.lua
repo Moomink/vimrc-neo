@@ -121,6 +121,36 @@ require('pckr').add {
     end
   },
 
+  {
+    "amitds1997/remote-nvim.nvim",
+    requires = {
+      "nvim-lua/plenary.nvim",
+      "MunifTanjim/nui.nvim",
+      "nvim-telescope/telescope.nvim",
+    },
+    config = function()
+      require("remote-nvim").setup({
+        ssh_config = {
+          ssh_prompt =  {
+				    {
+					    match = "Enter passphrase for key",
+					    type = "secret", -- パスフレーズはシークレットとして扱う
+					    value_type = "static", -- 毎回新しいパスフレーズを入力するか
+				      value = "", -- 初期値
+				    },
+          },
+        },
+      })
+    end,
+    cond = {
+      cmd('RemoteStart'),
+      cmd('RemoteStop'),
+      cmd('RemoteInfo'),
+      cmd('RemoteLog'),
+      cmd('RemoteCleanup'),
+    },
+  },
+
   --- mini.nvim
   {
     'echasnovski/mini.map',
